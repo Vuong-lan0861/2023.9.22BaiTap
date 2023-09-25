@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bai1</title>
+    <link rel="stylesheet" href="./css/baitap1.css">
+</head>
+
+    <body>
+
+        <!--    các bước làm:
+               b1: tạo 1 array 10 ảnh, 
+               b2: Tạo giao diện HTML như hình vẽ
+               b3: dùng JS để đổi giao diện, ko dùng HTML
+            -->
+        <div class="container">
+            <div class="container__main">
+                <img class="container__main--show" src='./images/a.webp' alt="">
+            </div>
+            <div class="container__images">
+                <ul class="container__images--list">
+
+                </ul>
+            </div>
+
+        </div>
+
+
+        <script>
+            let images = ['./images/a.webp', "./images/b.webp", "./images/c.webp",
+                "./images/d.webp", "./images/e.webp", "./images/f.webp", "./images/g.webp",
+                "./images/h.webp", "./images/i.webp", "./images/k.webp", "./images/l.webp"];
+            let count = -1;
+
+            // function render list ảnh
+            function renderImages(input) {
+
+                let text = '';
+                for (let index = 0; index < 7; index++) {
+
+                    if (index == 3) {
+                        text += `<li class="img" onclick = 'choosePic(${index})'><img  src="${input[index]}" alt=""></li>`
+                        document.getElementsByClassName('container__main--show')[0].src = input[index];
+                    } else {
+                        text += `<li class="img" onclick = 'choosePic(${index})' style = 'opacity: 0.5' ><img src="${input[index]}" alt=""></li>`
+                    }
+
+                }
+                document.getElementsByClassName('container__images--list')[0].innerHTML =
+                    `
+                      <li onclick = 'preImage()' class="btn">&#10094;</li>
+                           ${text}
+                       <li onclick = 'nextImage()' class="btn next"><span>&#10095;</span></li>
+                   `
+            }
+            renderImages(images);
+            // chon anh tiep theo
+
+            function nextImage() {
+                let result = images.shift();
+                images.push(result);
+                if (count != -1) {
+
+                }
+                renderImages(images);
+            }
+            function preImage() {
+                let result = images.pop();
+                images.unshift(result);
+                renderImages(images);
+            }
+            // ham chon anh bat ky
+            function choosePic(detailImage) {
+                let result = document.getElementsByClassName('img');
+                for (let i = 0; i < 7; i++) {
+                    if (i == detailImage) {
+                        document.getElementsByClassName('img')[i].style.opacity = 1;
+
+                    } else {
+                        document.getElementsByClassName('img')[i].style.opacity = 0.5;
+
+                    }
+                }
+                document.getElementsByClassName('container__main--show')[0].src = images[detailImage];
+
+            }
+
+
+        </script>
+
+    </body>
+
+</html>
